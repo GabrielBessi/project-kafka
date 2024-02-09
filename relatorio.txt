@@ -1,0 +1,2 @@
+BBB-111: {:status "executado", :velocidade 150, :placa "BBB-111", :multa 300.0, :pontos 12}
+CCC-222: {:status "executado", :velocidade 120, :placa "CCC-222", :multa 250.0, :pontos 7}

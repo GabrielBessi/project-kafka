@@ -12,13 +12,15 @@
   (close [_])
   (configure [_ configs isKey])
   (deserialize [_ topic data]
-    (json/read-str (.deserialize (StringDeserializer.) topic data) :key-fn keyword)))
+    (json/read-str 
+     (.deserialize (StringDeserializer.) topic data) :key-fn keyword)))
 
 (deftype Serializador []
   Serializer
   (close [_])
   (configure [_ configs isKey])
-  (serialize [_ topic data] (StringSerializer.) topic (json/write-str data)))
+  (serialize [_ topic data]
+    (.serialize (StringSerializer.) topic (json/write-str data))))
 
 (deftype Serde-personalizado []
   Serde
@@ -90,5 +92,5 @@
     (.addSink      "cmd-multa" "multa"                  (into-array String ["processador"]))
     (.addSink      "cmd-relatorio" "relatorio"          (into-array String ["processador"]))))
 
-(defn -main [& args]
+(defn -main []
   (.start (KafkaStreams. (topology) props)))
